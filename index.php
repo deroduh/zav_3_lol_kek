@@ -70,30 +70,79 @@ class Db_a {
         $result = $db->prepare($sql);
         return $result->execute();
     }
+
+   
+
+     public static function getAllRecords()
+    {
+          // Зєднання з БД
+        $db = Db::getConnection();
+
+        // Запит до БД
+        $result = $db->query('SELECT * FROM main ORDER BY WorkOrder_ID ASC ');
+        // Отримання і повернення результатів
+        $i = 0;
+        $recordsList = array();
+        while ( $row = $result->fetch()) {
+            $recordsList[$i][0] = $row['WorkOrder_ID'];
+            $recordsList[$i][1] = $row['Subject'];
+            $recordsList[$i][2] = $row['WorkOrder_ID'];
+            $recordsList[$i][3] = $row['WorkOrder_URL'];
+            $recordsList[$i][4] = $row['Description'];
+            $recordsList[$i][5] = $row['Internal Description'];
+            $recordsList[$i][6] = $row['Response/Solution'];
+            $recordsList[$i][7] = $row['Assigned_to'];
+            $recordsList[$i][8] = $row['Progress'];
+            $recordsList[$i][9] = $row['Spec'];
+            $recordsList[$i][10] = $row['QA'];
+            $recordsList[$i][11] = $row['Project'];
+            $recordsList[$i][12] = $row['Registration_Date'];
+            $recordsList[$i][13] = $row['Estimated_Hours'];
+            $recordsList[$i][14] = $row['Actual_Hours'];
+            $recordsList[$i][15] = $row['Module'];
+            $recordsList[$i][16] = $row['Started_Date'];
+            $i++;
+          }
+        return $recordsList;
+
+            
+        
+    }
+
+
+
+
 }
 
 
-$id = 1213;
+$id[0] = 1212;
+$id[1] = 1414;
 
 
  //$result = Db_a::getRecordById($id);
 //$result = Db_a::getRecordById($id);
 //$lol = Db_a::createRecord($result);
-$result = Db_a::deleteRecordById($id);
+//$result = Db_a::deleteRecordById($id);
+$result = Db_a::getAllRecords();
 
 
 
-echo $result;
-print $result;
-var_dump($result);
+
+var_dump($result[0][3]);
+
+var_dump($result[1]);
+
+
+
+
+
+
+
+
  ?>
 
 
 
-
-  <?php foreach ($result as $key => $value): ?>
-                        <p><?php echo $key."=".$value; ?></p>
-                      
-                <?php endforeach; ?>
+  
 
  
