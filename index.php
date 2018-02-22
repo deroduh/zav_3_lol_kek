@@ -43,6 +43,19 @@ class Db_a {
     }
 
 
+     public static function deleteRecordById($id)
+    {
+        // Зєднання з БД
+        $db = Db::getConnection();
+
+        // Текст запиту до БД
+        $sql = 'DELETE FROM main WHERE WorkOrder_ID = :id';
+
+        // Отримання і повернення результатів. Використовується підготований запит
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        return $result->execute();
+    }
 
     public static function createRecord($param)
     {
@@ -50,14 +63,11 @@ class Db_a {
         $db = Db::getConnection();
 
         // Текст запиту до БД
-        $sql = 'INSERT INTO category (name, sort_order, status) '
-                . 'VALUES (:name, :sort_order, :status)';
+        $sql = 'INSERT INTO main(`Subject`, `WorkOrder_ID`, `WorkOrder_URL`, `Description`, `Internal Description`, `Response/Solution`, `Assigned_to`, `Progress`, `Spec`, `QA`, `Project`, `Registration_Date`, `Estimated_Hours`, `Actual_Hours`, `Module`, `Started_Date`) '
+                . 'VALUES ()';
 
         // Отримання і повернення результатів. Використовується підготований запит
         $result = $db->prepare($sql);
-        $result->bindParam(':name', $name, PDO::PARAM_STR);
-        $result->bindParam(':sort_order', $sortOrder, PDO::PARAM_INT);
-        $result->bindParam(':status', $status, PDO::PARAM_INT);
         return $result->execute();
     }
 }
@@ -67,12 +77,18 @@ $id = 1213;
 
 
  //$result = Db_a::getRecordById($id);
-$result = Db_a::getIds();
+//$result = Db_a::getRecordById($id);
+//$lol = Db_a::createRecord($result);
+$result = Db_a::deleteRecordById($id);
+
+
 
 echo $result;
 print $result;
 var_dump($result);
  ?>
+
+
 
 
   <?php foreach ($result as $key => $value): ?>
